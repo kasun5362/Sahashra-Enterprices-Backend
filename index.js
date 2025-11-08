@@ -6,10 +6,15 @@ import userRouter from "./routes/userRoute.js"
 import productRouter from "./routes/productRoute.js"
 import jwt from "jsonwebtoken"
 import cors from "cors"
+import bookingRouter from "./routes/bookingRoute.js"
+import categoryRouter from "./routes/categoryRoute.js"
+
 
 const app = express()
+
 app.use(cors())
 app.use(bodyParser.json())
+
 
 dotenv.config()
 const mongoUrl = process.env.MONGO_URL;
@@ -37,6 +42,8 @@ app.use("/",(req,res,next)=>{
 
 app.use("/api/user",userRouter);
 app.use("/api/product",productRouter);
+app.use("/api/booking",bookingRouter)
+app.use("/api/category",categoryRouter);
 
 app.get("/",(req,res)=>{
     res.send("Server is running on port 3000");

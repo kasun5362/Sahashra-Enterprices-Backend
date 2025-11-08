@@ -2,9 +2,35 @@ import bcrypt from "bcrypt";
 import User from "../model/user.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import { raw } from "body-parser";
+
 
 dotenv.config();
+
+
+export function isAdmin(req) {
+  if (req.user.role == "admin") {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+export function isUser(req) {
+  if (req.user.role == "customer") {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+export function isUserNull(req) {
+  if (req.user == null) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 
 export async function registerUser(req, res) {
   try {
@@ -20,6 +46,10 @@ export async function registerUser(req, res) {
         profilePic: user.profilePic,
         contact: user.contact,
         role: user.role,
+        password: user.password,
+        address: user.address,
+        nic: user.nic,
+     
       },
       process.env.SACHIN_JWT
     );
@@ -63,6 +93,10 @@ export async function loginUser(req, res) {
         profilePic: user.profilePic,
         contact: user.contact,
         role: user.role,
+        password: user.password,
+        address: user.address,
+        nic: user.nic,
+
       };
       const token = jwt.sign(tokenData, process.env.SACHIN_JWT);
       res.json({
@@ -99,57 +133,118 @@ export function getUserDetails(req, res) {
   }
 }
 
-// export async function updateUser(req, res) {
-//   try {
-//     if (isUserNull(req)) {
-//     res.status(401).json({
-//       message: "You are not authorized to perform this task",
-//     });
-//     return;
-//   }
+export async function updateUser(req, res) {
+  try {
+    if (isUserNull(req)) {
+    res.status(401).json({
+      message: "You are not authorized to perform this task",
+    });
+    return;
+  }
 
-//   if (isUser(req)) {
-//     const updateData = req.body;
-//     if (updateData.password != null) {
-//       updateData.password = bcrypt.hashSync(updateData.password, 10);
-//     }
+  if (isUser(req)) {
+    const updateData = req.body;
+    if (updateData.password != null && updateData.password !== "") {
+      updateData.password = bcrypt.hashSync(updateData.password, 10);
+    }
     
-//     updateData.role = "customer";
-//     const updateID = req.params.email;
-//     await User.updateOne(
-//       {
-//         email: updateID,
-//       },
-//         updateData
-//     )
-//   }
-//   }catch(e){
-//     res.status(500).json({
-//       message: "User updating failed"
-//     })
-//   }
-// }
+    if(!isAdmin(req)){
+        updateData.role = "customer";
+    }
+    const updateID = updateData.email;
+    await User.updateOne(
+      {
+        email: updateID,
+      },
+        updateData
+    );
+    const user = await User.findOne({ email: updateID });
+    const token = jwt.sign(
+      {
+        email: user.email,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        profilePic: user.profilePic,
+        contact: user.contact,
+        role: user.role,
+        password: user.password,
+        address: user.address,
+        nic: user.nic,
 
-export function isAdmin(req) {
-  if (req.user.role == "admin") {
-    return true;
-  } else {
-    return false;
+      },
+      process.env.SACHIN_JWT
+    );
+    res.json({
+      message: "User updated successfully",
+      token: token,
+      role: user.role,
+    });
+  }
+  }catch(e){
+    res.status(500).json({
+      message: "User updating failed: " + e.message
+    })
   }
 }
 
-export function isUser(req) {
-  if (req.user.role == "customer") {
-    return true;
-  } else {
-    return false;
+
+
+export async function getAllUsers(req,res) {
+  try{
+    if(isUserNull(req)){
+        res.status(401).json({
+            message: "You are not authorized to perform this task"
+        });
+        return;
+    }
+
+    if(!isAdmin(req)){
+        res.status(401).json({
+            message: "You are not authorized to perform this task"
+        });
+        return;
+    }
+
+    const users = await User.find({
+        role: "customer"
+    });
+    res.json(users);
+  } catch (e) {
+    res.status(500).json({
+      message: "Error fetching users "
+    });
   }
 }
 
-export function isUserNull(req) {
-  if (req.user == null) {
-    return true;
-  } else {
-    return false;
+
+export async function deleteUser(req,res) {
+  try {
+    if (isUserNull(req)) {
+      res.status(401).json({
+        message: "You are not authorized to perform this task",
+      });
+      return;
+    }
+
+    if(!isAdmin(req)){
+        res.status(401).json({
+            message: "You are not authorized to perform this task"
+        });
+        return;
+    }
+
+    const deleteId = req.params.email;
+    await User.deleteOne({
+      email: deleteId,
+    });
+
+    res.json({
+      message: "User deleted successfully",
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      message: "Error deleting user" ,
+    });
   }
 }

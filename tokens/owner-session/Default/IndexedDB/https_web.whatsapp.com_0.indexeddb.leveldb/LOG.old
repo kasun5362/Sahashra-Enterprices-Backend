@@ -1,0 +1,35 @@
+2025/11/07-18:16:53.251 143c Creating DB E:\android\Flutter_Development\Sachin Enterprises\Sachin Enterprises - Backup (without payment gateway)\Sachin-Enterprises-Backend\tokens\owner-session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb since it was missing.
+2025/11/07-18:16:53.388 143c Reusing MANIFEST E:\android\Flutter_Development\Sachin Enterprises\Sachin Enterprises - Backup (without payment gateway)\Sachin-Enterprises-Backend\tokens\owner-session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2025/11/07-18:16:54.723 4c04 Level-0 table #5: started
+2025/11/07-18:16:54.881 4c04 Level-0 table #5: 14624 bytes OK
+2025/11/07-18:16:55.012 4c04 Delete type=0 #3
+2025/11/07-18:16:55.013 4c04 Manual compaction at level-0 from '\x00\x03\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x04\x00\x00\x00' @ 0 : 0; will stop at (end)
+2025/11/07-18:16:55.043 1984 Level-0 table #7: started
+2025/11/07-18:16:55.183 1984 Level-0 table #7: 611 bytes OK
+2025/11/07-18:16:55.279 1984 Delete type=0 #4
+2025/11/07-18:16:55.279 4c04 Manual compaction at level-0 from '\x00\x0e\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x0f\x00\x00\x00' @ 0 : 0; will stop at (end)
+2025/11/07-18:16:55.357 1984 Level-0 table #9: started
+2025/11/07-18:16:55.479 1984 Level-0 table #9: 719 bytes OK
+2025/11/07-18:16:55.649 1984 Delete type=0 #6
+2025/11/07-18:16:55.650 1984 Manual compaction at level-0 from '\x00\x04\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x05\x00\x00\x00' @ 0 : 0; will stop at '\x00\x0f\x00\x00\x05' @ 921 : 1
+2025/11/07-18:16:55.650 1984 Compacting 1@0 + 1@1 files
+2025/11/07-18:16:55.783 1984 Generated table #10@0: 27 keys, 676 bytes
+2025/11/07-18:16:55.783 1984 Compacted 1@0 + 1@1 files => 676 bytes
+2025/11/07-18:16:55.939 1984 compacted to: files[ 0 1 1 0 0 0 0 ]
+2025/11/07-18:16:55.994 1984 Delete type=2 #9
+2025/11/07-18:16:55.998 4c04 Manual compaction at level-0 from '\x00\x0f\x00\x00\x05' @ 921 : 1 .. '\x00\x05\x00\x00\x00' @ 0 : 0; will stop at (end)
+2025/11/07-18:16:55.998 4c04 Manual compaction at level-1 from '\x00\x04\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x05\x00\x00\x00' @ 0 : 0; will stop at '\x00\x0f\x00\x00\x05' @ 921 : 1
+2025/11/07-18:16:55.999 4c04 Compacting 1@1 + 1@2 files
+2025/11/07-18:16:56.117 4c04 Generated table #11@1: 482 keys, 10380 bytes
+2025/11/07-18:16:56.117 4c04 Compacted 1@1 + 1@2 files => 10380 bytes
+2025/11/07-18:16:56.237 4c04 compacted to: files[ 0 0 1 0 0 0 0 ]
+2025/11/07-18:16:56.238 4c04 Delete type=2 #10
+2025/11/07-18:16:56.240 34c Manual compaction at level-1 from '\x00\x0f\x00\x00\x05' @ 921 : 1 .. '\x00\x05\x00\x00\x00' @ 0 : 0; will stop at (end)
+2025/11/07-18:16:56.272 34c Level-0 table #13: started
+2025/11/07-18:16:56.341 34c Level-0 table #13: 1111 bytes OK
+2025/11/07-18:16:56.431 34c Delete type=2 #5
+2025/11/07-18:16:56.431 34c Delete type=2 #7
+2025/11/07-18:16:56.431 34c Delete type=0 #8
+2025/11/07-18:16:56.433 1984 Manual compaction at level-0 from '\x00\x0f\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x10\x00\x00\x00' @ 0 : 0; will stop at (end)
+2025/11/07-18:16:56.433 1984 Manual compaction at level-1 from '\x00\x0f\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x10\x00\x00\x00' @ 0 : 0; will stop at '\x00\x12\x00\x00\x05' @ 987 : 1
+2025/11/07-18:16:56.433 1984 Compacting 1@1 + 1@2 files
