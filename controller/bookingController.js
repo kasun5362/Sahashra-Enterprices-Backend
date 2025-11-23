@@ -5,6 +5,7 @@ import { sendWhatsAppMessage } from "../services/whatsappService.js";
 export async function addBooking(req, res) {
   const bookingData = req.body;
 
+  
   try {
     if (isUserNull(req)) {
       return res.status(401).json({
