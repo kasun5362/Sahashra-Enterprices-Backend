@@ -106,6 +106,11 @@ const bookingSchema = new mongoose.Schema({
         type: String,
         required: true,
         default: "pending"
+    },
+
+    paymentMethod: {
+        type: String,
+        required: true
     }
 
 
