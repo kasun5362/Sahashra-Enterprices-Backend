@@ -92,16 +92,12 @@ export async function loginUser(req, res) {
         lastname: user.lastname,
         profilePic: user.profilePic,
         contact: user.contact,
-        role: user.role,
-        password: user.password,
-        address: user.address,
-        nic: user.nic,
-
       };
       const token = jwt.sign(tokenData, process.env.SACHIN_JWT);
       res.json({
         message: "Login success",
         token: token,
+        user: user,
         role: user.role,
       });
     } else {

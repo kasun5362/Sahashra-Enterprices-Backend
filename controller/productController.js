@@ -20,6 +20,10 @@ export async function addProducts(req, res) {
 
         if (isAdmin(req)) {
             const productData = req.body;
+            
+            if (req.file) {
+                productData.image = req.file.path;
+            }
 
             if (productData.categories) {
 
@@ -115,6 +119,10 @@ export async function updateProduct(req, res) {
         if (isAdmin(req)) {
             const updateData = req.body;
             const updateId = req.params.productKey;
+            
+            if (req.file) {
+                updateData.image = req.file.path;
+            }
 
             if (updateData.categories) {
                 if (Array.isArray(updateData.categories)) {

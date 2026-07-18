@@ -61,4 +61,32 @@ export async function deleteCategory(req, res) {
             message: "Category delete failed" + e.message
         });
     }
-}   
+}
+
+export async function updateCategory(req, res) {
+    try {
+        if (isUserNull(req) || !isAdmin(req)) {
+            res.status(401).json({
+                message: "You are not authorized to perform this task"
+            });
+            return;
+        }
+
+        if (isAdmin(req)) {
+            const updateName = req.params.name;
+            const updateData = req.body;
+            
+            await Category.updateOne({
+                name: updateName
+            }, updateData);
+            
+            res.json({
+                message: "Category update success"
+            });
+        }
+    } catch (e) {
+        res.status(500).json({
+            message: "Category update failed: " + e.message
+        });
+    }
+}
