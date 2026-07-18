@@ -60,12 +60,11 @@ export async function registerUser(req, res) {
       role: user.role,
     });
   } catch (e) {
-    res.json({
+    res.status(400).json({
       message: "Registration failed: " + e.message,
     });
   }
 }
-
 export async function loginUser(req, res) {
   try {
     const userData = req.body;
