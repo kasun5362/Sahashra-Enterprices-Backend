@@ -38,6 +38,11 @@ export async function addBooking(req, res) {
     bookingData.productCategories = product.categories;
     bookingData.productType = product.productType;
     bookingData.productQuantity = bookingData.quantity || 1;
+    
+    if (bookingData.productType === 'rental') {
+      bookingData.nicFrontImage = bookingData.nicFrontImage;
+      bookingData.nicBackImage = bookingData.nicBackImage;
+    }
 
     // Cost calculation
     if(bookingData.productType === "rental") {
@@ -88,6 +93,8 @@ ${booking.productType === "rental" ?
 📸 *Images:*
 ───────────────────
 🧾 Product: ${booking.productImage}
+${booking.productType === "rental" && booking.nicFrontImage ? 
+`🪪 NIC Front: ${booking.nicFrontImage}\n🪪 NIC Back: ${booking.nicBackImage}` : ""}
 
 💬 *Please review and process this order promptly.*
     `;

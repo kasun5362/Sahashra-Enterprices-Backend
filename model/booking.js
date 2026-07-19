@@ -23,7 +23,8 @@ const bookingSchema = new mongoose.Schema({
         required: true          
     },
 
-
+    nicFrontImage: { type: String },
+    nicBackImage: { type: String },
 
     contact: {
         type: String,

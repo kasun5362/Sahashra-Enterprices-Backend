@@ -8,6 +8,7 @@ import jwt from "jsonwebtoken"
 import cors from "cors"
 import bookingRouter from "./routes/bookingRoute.js"
 import categoryRouter from "./routes/categoryRoute.js"
+import uploadRouter from "./routes/uploadRoute.js"
 
 
 const app = express()
@@ -33,6 +34,7 @@ app.use("/api/user",userRouter);
 app.use("/api/product",productRouter);
 app.use("/api/booking",bookingRouter)
 app.use("/api/category",categoryRouter);
+app.use("/api/upload",uploadRouter);
 
 app.get("/",(req,res)=>{
     res.send("Server is running on port 3000");
