@@ -111,16 +111,24 @@ export async function loginUser(req, res) {
   }
 }
 
-export function getUserDetails(req, res) {
+export async function getUserDetails(req, res) {
   try {
-    const user = req.user;
-    if (user == null) {
-      res.status(401).json({
+    const userToken = req.user;
+    if (userToken == null) {
+      return res.status(401).json({
         message: "User details not found.",
       });
     }
 
-    res.json(user);
+    const user = await User.findOne({ email: userToken.email });
+    
+    if (user == null) {
+      return res.status(404).json({
+        message: "User not found in database.",
+      });
+    }
+
+    res.json({ user: user });
   } catch (e) {
     res.status(500).json({
       message: "Error fetch user details: " + e.message,
