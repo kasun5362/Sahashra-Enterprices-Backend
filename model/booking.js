@@ -23,19 +23,7 @@ const bookingSchema = new mongoose.Schema({
         required: true          
     },
 
-    nicFrontImage: {
-        type: String,
-        required: function () {
-            return this.productType === 'rental';
-        }
-    },
 
-    nicBackImage: {
-        type: String,
-        required: function () {
-            return this.productType === 'rental';
-        }
-    },
 
     contact: {
         type: String,
@@ -51,6 +39,12 @@ const bookingSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+
+    productName: { type: String, required: true },
+    productType: { type: String, required: true },
+    productImage: { type: String },
+    productCategories: [{ type: String }],
+    productQuantity: { type: Number, required: true },
 
     bookingDate: {
         type: Date,

@@ -1,4 +1,5 @@
 import Booking from "../model/booking.js";
+import Product from "../model/product.js";
 import { isAdmin, isUserNull } from "./userController.js";
 import { sendWhatsAppMessage } from "../services/whatsappService.js";
 
@@ -18,24 +19,36 @@ export async function addBooking(req, res) {
     const lastBooking = await Booking.findOne().sort({ id: -1 });
     if (lastBooking) id = lastBooking.id + 1;
 
+    const product = await Product.findOne({ productKey: bookingData.productKey });
+    if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+    }
+
     // Assign user data
     bookingData.id = id;
     bookingData.email = req.user.email;
-    bookingData.nic = req.user.nic;
+    bookingData.nic = bookingData.nic || req.user.nic;
     bookingData.profilePic = req.user.profilePic;
     bookingData.contact = req.user.contact;
-    bookingData.address = req.user.address;
+    bookingData.address = bookingData.address || req.user.address;
     
- 
+    // Assign product data
+    bookingData.productName = product.name;
+    bookingData.productImage = product.image;
+    bookingData.productCategories = product.categories;
+    bookingData.productType = product.productType;
+    bookingData.productQuantity = bookingData.quantity || 1;
 
-
-    // If spare part, remove rental dates
-    if (bookingData.productType === "spare") {
+    // Cost calculation
+    if(bookingData.productType === "rental") {
+      let rentalDays = Math.ceil((new Date(bookingData.returnDate) - new Date(bookingData.pickupDate)) / (1000 * 60 * 60 * 24));
+      if (rentalDays < 1) rentalDays = 1;
+      bookingData.rentalCost = bookingData.productQuantity * product.price * rentalDays;
+    } else if (bookingData.productType === "spare") {
       delete bookingData.pickupDate;
       delete bookingData.returnDate;
+      bookingData.rentalCost = bookingData.productQuantity * product.price;
     }
-
-   
 
     const booking = new Booking(bookingData);
     await booking.save();
@@ -75,8 +88,6 @@ ${booking.productType === "rental" ?
 📸 *Images:*
 ───────────────────
 🧾 Product: ${booking.productImage}
-${booking.productType === "rental" ? 
-`🪪 NIC Front: ${booking.nicFrontImage}\n🪪 NIC Back: ${booking.nicBackImage}` : ""}
 
 💬 *Please review and process this order promptly.*
     `;
