@@ -47,33 +47,8 @@ const bookingSchema = new mongoose.Schema({
         required: true
     },
 
-    productKey: {
+    product: {
         type: String,
-        required: true
-    },
-
-    productImage: {
-        type: String,
-        required: true
-    },
-
-    productName: {
-        type: String,
-        required: true
-    },
-
-    productCategories: [{
-        type: String,
-        required: true
-    }],
-
-    productType: {
-        type: String,
-        required: true
-    },
-
-    productQuantity: {
-        type: Number,
         required: true
     },
 

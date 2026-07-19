@@ -27,18 +27,7 @@ mongoose.connect(mongoUrl).then(()=>{
     
 })
 
-app.use("/",(req,res,next)=>{
-    let token = req.header("Authorization");
-    
-    
-    if(token != null){
-        token = token.replace("Bearer ","");
-        const user = jwt.verify(token,process.env.SACHIN_JWT);
-        req.user = user;
-    }
-    
-    next();
-})
+
 
 app.use("/api/user",userRouter);
 app.use("/api/product",productRouter);
