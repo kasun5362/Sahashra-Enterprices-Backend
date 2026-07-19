@@ -47,7 +47,7 @@ const bookingSchema = new mongoose.Schema({
         required: true
     },
 
-    product: {
+    productKey: {
         type: String,
         required: true
     },
@@ -82,11 +82,6 @@ const bookingSchema = new mongoose.Schema({
         required: true,
         default: "pending"
     },
-
-    paymentMethod: {
-        type: String,
-        required: true
-    }
 
 
 });
