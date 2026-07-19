@@ -24,12 +24,18 @@ export async function addBooking(req, res) {
     bookingData.nic = req.user.nic;
     bookingData.profilePic = req.user.profilePic;
     bookingData.contact = req.user.contact;
+    bookingData.address = req.user.address;
+    
+ 
+
 
     // If spare part, remove rental dates
     if (bookingData.productType === "spare") {
       delete bookingData.pickupDate;
       delete bookingData.returnDate;
     }
+
+   
 
     const booking = new Booking(bookingData);
     await booking.save();
